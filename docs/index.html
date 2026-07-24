@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>게재보고 시뮬레이터</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="gate" style="position:fixed;inset:0;z-index:100;background:#141416;display:flex;align-items:center;justify-content:center">
+  <div style="background:#1d1d20;border:1px solid #343438;border-top:3px solid #a6192e;padding:38px 42px;border-radius:8px;text-align:center;width:330px">
+    <div style="font-size:18px;letter-spacing:1px;margin-bottom:4px">게재보고 <span style="color:#a6192e">SIMULATOR</span></div>
+    <div style="color:#9a9aa0;font-size:12px;margin-bottom:18px">팀 공용 비밀번호</div>
+    <input type="password" id="pw" placeholder="비밀번호" style="width:100%;padding:10px;border-radius:4px;border:1px solid #343438;background:#141416;color:#eaeaec;font-size:14px;margin-bottom:10px">
+    <button id="pwbtn" style="width:100%;padding:10px;border:0;border-radius:4px;background:#a6192e;color:#fff;font-weight:700;font-size:14px;cursor:pointer">접속</button>
+    <div id="pwerr" style="color:#ff8080;font-size:12px;margin-top:8px;min-height:15px"></div>
+  </div>
+</div>
+<script>
+(function(){
+  var HASH="df8ab53cabe895638e16712e3f6d60b879161a50db1d4a57e2d21086ea6ff3c4"; // nas2026
+  function sha(s){return crypto.subtle.digest("SHA-256",new TextEncoder().encode(s)).then(function(b){return Array.prototype.map.call(new Uint8Array(b),function(x){return x.toString(16).padStart(2,"0")}).join("")})}
+  function go(){ sha(document.getElementById("pw").value).then(function(h){ if(h===HASH){ sessionStorage.setItem("pr_ok",h); document.getElementById("gate").style.display="none"; } else { document.getElementById("pwerr").textContent="비밀번호가 올바르지 않습니다."; } }) }
+  document.getElementById("pwbtn").addEventListener("click",go);
+  document.getElementById("pw").addEventListener("keydown",function(e){ if(e.key==="Enter") go(); });
+  if(sessionStorage.getItem("pr_ok")===HASH) document.getElementById("gate").style.display="none";
+})();
+</script>
+<header>
+  <h1>게재보고 <span>SIMULATOR</span></h1>
+  <span class="sub">소재를 넣고 상품을 선택하면 실제 게재면으로 렌더링됩니다 · Nasmedia</span>
+</header>
+<div class="wrap">
+  <div class="left">
+    <div class="sec">
+      <h2>1. 상품 선택</h2>
+      <select id="template">
+        <option value="vvc">유튜브 VVC — 검색 인피드 (가로)</option>
+        <option value="vrc">유튜브 VRC — 검색 인피드 + 필터칩 (가로)</option>
+        <option value="shorts">유튜브 Run of Shorts — 세로 전체화면</option>
+      </select>
+    </div>
+    <div class="sec">
+      <h2>2. 소재 입력</h2>
+      <div class="tabs">
+        <div class="tab on" data-m="img">이미지</div>
+        <div class="tab" data-m="vid">영상(프레임 선택)</div>
+      </div>
+      <div id="in-img"><input type="file" id="img" accept="image/*"></div>
+      <div id="in-vid" style="display:none">
+        <input type="file" id="vidfile" accept="video/*">
+        <div id="vidtools" style="display:none;margin-top:8px">
+          <label>장면 선택 (드래그): <b id="tstamp">0.0s</b></label>
+          <input type="range" id="scrub" min="0" max="100" value="50">
+          <div class="hint">유튜브 영상은 파일로 저장해 올리거나, 원하는 장면을 캡처해 이미지로 올리세요.</div>
+        </div>
+      </div>
+    </div>
+    <div class="sec"><h2>3. 요소별 설정 (모두 개별 조정)</h2></div>
+    <div id="ctrl"></div>
+    <button class="btn primary" id="dl">고화질 PNG 다운로드</button>
+    <div class="hint" style="text-align:center;margin-top:6px">미리보기 그대로 3배 해상도(1080px)로 저장됩니다.</div>
+  </div>
+  <div class="right">
+    <div class="pv-label">실시간 미리보기</div>
+    <div id="stage"></div>
+  </div>
+</div>
+<script src="lib/html2canvas.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
