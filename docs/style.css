@@ -75,6 +75,15 @@ input[type=checkbox]{ width:auto; }
 .organic{ padding:16px 12px 0; }
 .org-h{ font-size:15px; font-weight:700; } .org-s{ font-size:12px; color:#aaa; margin-top:2px; } .pad{ height:16px; }
 
+/* ---- 마스트헤드(홈피드 · MO) ---- */
+.home-top{ height:48px; display:flex; align-items:center; justify-content:space-between; padding:0 14px; }
+.home-top .yt-logo span{ font-size:17px; }
+.ht-r{ display:flex; align-items:center; gap:16px; }
+.mute{ position:absolute; right:10px; bottom:10px; width:34px; height:34px; border-radius:50%;
+  background:rgba(0,0,0,.55); display:flex; align-items:center; justify-content:center; }
+.next-org{ margin-top:18px; height:84px; display:flex; align-items:center; justify-content:center;
+  background:repeating-linear-gradient(45deg,#2a2a2a,#2a2a2a 12px,#242424 12px,#242424 24px); color:#777; font-size:12px; }
+
 /* ---- Shorts(세로) ---- */
 /* 실제 게재면 캡처 비율 기준: 액션 아이콘 ~22px, 하단 유튜브 내비게이션 포함 */
 .sphone{ width:360px; height:780px; position:relative; background:#000; overflow:hidden;

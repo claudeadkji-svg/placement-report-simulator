@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>게재보고 시뮬레이터 — 사용법 가이드</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:"Malgun Gothic","맑은 고딕",sans-serif;background:#141416;color:#eaeaec;line-height:1.7}
+a{color:#6db3ff}
+.top{background:#0d0d0f;border-bottom:2px solid #a6192e;padding:14px 24px;position:sticky;top:0;z-index:10}
+.top h1{font-size:17px;letter-spacing:1px}.top h1 span{color:#a6192e}
+.top .sub{color:#9a9aa0;font-size:12px;margin-left:10px}
+.wrap{max-width:1080px;margin:0 auto;padding:28px 20px 80px}
+h2{font-size:19px;margin:44px 0 6px;padding-bottom:8px;border-bottom:1px solid #343438}
+h2:first-of-type{margin-top:10px}
+h3{font-size:15px;margin:22px 0 6px;color:#ffd08a}
+p,li{font-size:14px;color:#cfcfd4}
+ul,ol{padding-left:22px;margin:8px 0}
+img{max-width:100%;border:1px solid #343438;border-radius:8px;margin:14px 0;display:block}
+.num{display:inline-block;width:22px;height:22px;border-radius:50%;background:#ff3b30;color:#fff;font-weight:700;font-size:13px;line-height:22px;text-align:center;margin-right:6px}
+.step{background:#1d1d20;border:1px solid #343438;border-left:3px solid #a6192e;border-radius:6px;padding:14px 18px;margin:12px 0}
+.tip{background:#16211a;border:1px solid #2a4a35;border-radius:6px;padding:12px 16px;margin:12px 0;font-size:13px}
+.warn{background:#241a1a;border:1px solid #4a2a2a;border-radius:6px;padding:12px 16px;margin:12px 0;font-size:13px}
+table{border-collapse:collapse;width:100%;margin:12px 0;font-size:13px}
+th,td{border:1px solid #343438;padding:8px 12px;text-align:left}
+th{background:#1d1d20;white-space:nowrap}
+code{background:#26262a;padding:1px 6px;border-radius:4px;font-size:12.5px}
+.toc{background:#1d1d20;border:1px solid #343438;border-radius:8px;padding:16px 22px;margin:18px 0}
+.toc li{margin:3px 0}
+#gate{position:fixed;inset:0;z-index:100;background:#141416;display:flex;align-items:center;justify-content:center}
+#gate .box{background:#1d1d20;border:1px solid #343438;border-top:3px solid #a6192e;padding:38px 42px;border-radius:8px;text-align:center;width:330px}
+#gate input{width:100%;padding:10px;border-radius:4px;border:1px solid #343438;background:#141416;color:#eaeaec;font-size:14px;margin:14px 0 10px}
+#gate button{width:100%;padding:10px;border:0;border-radius:4px;background:#a6192e;color:#fff;font-weight:700;font-size:14px;cursor:pointer}
+</style>
+</head>
+<body>
+
+<div id="gate">
+  <div class="box">
+    <div style="font-size:18px;letter-spacing:1px">게재보고 <span style="color:#a6192e">SIMULATOR</span> 가이드</div>
+    <input type="password" id="pw" placeholder="팀 공용 비밀번호">
+    <button id="pwbtn" >접속</button>
+    <div id="pwerr" style="color:#ff8080;font-size:12px;margin-top:8px;min-height:15px"></div>
+  </div>
+</div>
+
+<div class="top"><h1>게재보고 <span>SIMULATOR</span> <span class="sub">팀원용 사용법 가이드</span></h1></div>
+<div class="wrap">
+
+<div class="toc">
+  <b>목차</b>
+  <ol>
+    <li><a href="#s1">이 도구는 무엇인가요?</a></li>
+    <li><a href="#s2">접속과 로그인</a></li>
+    <li><a href="#s3">전체 프로세스 한눈에 보기 (4단계)</a></li>
+    <li><a href="#s4">소재 넣는 3가지 방법</a></li>
+    <li><a href="#s5">신규 상품: 유튜브 마스트헤드</a></li>
+    <li><a href="#s6">요소별 설정 — 무엇을 바꿀 수 있나</a></li>
+    <li><a href="#s7">이미지 저장과 게재보고 활용</a></li>
+    <li><a href="#s8">주의사항 · FAQ</a></li>
+  </ol>
+</div>
+
+<h2 id="s1">1. 이 도구는 무엇인가요?</h2>
+<p>게재보고를 만들 때 <b>실제 화면을 캡처할 수 없는 지면</b>(라이브가 끝난 캠페인, 타기팅 때문에 내 계정에서 안 보이는 지면 등)을 채우기 위한 도구입니다.
+광고 소재를 넣고 상품을 고르면 실제 유튜브 게재면과 동일한 레이아웃으로 합성한 <b>고화질(1080px) 이미지</b>를 만들어 줍니다.</p>
+<div class="warn">⚠️ 이 도구로 만든 이미지는 <b>시뮬레이션</b>입니다. 실제 캡처가 가능한 지면은 반드시 실제 캡처를 사용하고, 시뮬레이션 이미지 사용은 팀 공유 기준을 따라 주세요.</div>
+
+<h2 id="s2">2. 접속과 로그인</h2>
+<div class="step">
+  <p>주소: <a href="https://claudeadkji-svg.github.io/placement-report-simulator/" target="_blank">https://claudeadkji-svg.github.io/placement-report-simulator/</a></p>
+</div>
+<img src="guide/login.png" alt="로그인 화면">
+<ul>
+  <li><span class="num">1</span><b>비밀번호 입력칸</b> — 팀 공용 비밀번호를 입력합니다. 비밀번호는 팀 리더에게 문의하세요.</li>
+  <li><span class="num">2</span><b>접속 버튼</b> — 클릭(또는 Enter)하면 바로 작업 화면이 열립니다.</li>
+</ul>
+
+<h2 id="s3">3. 전체 프로세스 한눈에 보기 (4단계)</h2>
+<p>화면은 <b>왼쪽 = 조작</b>, <b>오른쪽 = 실시간 미리보기</b>로 나뉩니다. 왼쪽에서 무엇이든 바꾸면 오른쪽에 즉시 반영됩니다.</p>
+<img src="guide/overview.png" alt="전체 화면 구성">
+<table>
+  <tr><th>번호</th><th>영역</th><th>하는 일</th></tr>
+  <tr><td><span class="num">1</span></td><td>1. 상품 선택</td><td>드롭다운에서 게재 지면을 고릅니다. 모바일(MO) 4종 + 데스크톱(PC) 3종. 상품을 바꾸면 미리보기와 아래 설정 항목이 그 지면에 맞게 통째로 바뀝니다.</td></tr>
+  <tr><td><span class="num">2</span></td><td>2. 소재 입력</td><td>탭 3개(이미지 / 영상(프레임) / 유튜브 URL) 중 하나로 광고 소재를 넣습니다. → 4장에서 자세히.</td></tr>
+  <tr><td><span class="num">3</span></td><td>3. 요소별 설정</td><td>시간·배터리·검색어·제목·CTA 색까지 화면의 모든 요소를 개별 조정합니다. → 6장에서 자세히.</td></tr>
+  <tr><td><span class="num">4</span></td><td>고화질 PNG 다운로드</td><td>완성되면 클릭. 미리보기 그대로 3배 해상도(가로 1080px)로 저장됩니다.</td></tr>
+  <tr><td><span class="num">5</span></td><td>실시간 미리보기</td><td>지금 저장하면 나올 결과물 그대로입니다. 빗금 영역("여기에 광고 소재")에 소재가 합성됩니다.</td></tr>
+</table>
+<div class="step">
+<b>가장 짧은 사용 흐름:</b>
+<ol>
+  <li><span class="num">1</span>상품 선택 (예: 유튜브 VVC — 검색 인피드)</li>
+  <li><span class="num">2</span>소재 입력 (예: 이미지 탭에서 소재 파일 업로드)</li>
+  <li><span class="num">3</span>광고주 이름·제목·CTA 문구만 캠페인에 맞게 수정</li>
+  <li><span class="num">4</span>고화질 PNG 다운로드 → 게재보고 덱에 삽입</li>
+</ol>
+</div>
+
+<h2 id="s4">4. 소재 넣는 3가지 방법</h2>
+<h3>방법 A — 이미지 파일 업로드 (가장 간단)</h3>
+<p>"이미지" 탭에서 <b>파일 선택</b>을 누르고 소재 이미지(JPG/PNG)를 고르면 즉시 미리보기에 합성됩니다. 소재 시안이나 스틸컷이 있을 때 사용하세요.</p>
+
+<h3>방법 B — 영상 파일에서 원하는 장면 뽑기</h3>
+<img src="guide/vid.png" alt="영상 프레임 선택">
+<ul>
+  <li><span class="num">1</span><b>영상 파일 업로드</b> — "영상(프레임)" 탭에서 소재 영상 파일(MP4 등)을 선택합니다.</li>
+  <li><span class="num">2</span><b>장면 선택 슬라이더</b> — 업로드가 끝나면 슬라이더가 나타납니다. 좌우로 드래그하면 위에 초 단위 위치가 표시되고, 그 시점의 프레임이 바로 소재로 적용됩니다. 브랜드 로고가 크게 나오는 장면 등 원하는 컷에서 멈추면 됩니다.</li>
+</ul>
+<div class="tip">💡 <b>화질이 생명입니다.</b> 영상 소재는 반드시 최대 해상도(1080p 이상) 원본 파일을 사용하세요. 저화질 파일로 만들면 게재보고 결과물도 흐릿해집니다.</div>
+
+<h3>방법 C — 유튜브 URL로 가져오기</h3>
+<img src="guide/yturl.png" alt="유튜브 URL 입력">
+<ul>
+  <li><span class="num">1</span><b>URL 입력</b> — "유튜브 URL" 탭에 영상 주소를 붙여넣습니다. <code>youtube.com/watch?v=…</code>, <code>youtu.be/…</code>, <code>/shorts/…</code> 모두 인식합니다.</li>
+  <li><span class="num">2</span><b>제목·채널명 자동 입력</b> — 체크해 두면(기본값) 영상 제목과 채널명이 아래 "요소별 설정"의 제목·스폰서명 칸에 자동으로 채워집니다.</li>
+  <li><span class="num">3</span><b>소재 가져오기</b> — 클릭하면 그 영상의 최고화질 대표 썸네일을 받아 소재로 적용합니다. 버튼 아래에 "적용 완료" 상태가 표시됩니다.</li>
+</ul>
+<div class="tip">💡 URL 방식은 <b>대표 썸네일</b>만 가져옵니다. 영상 중간의 특정 장면이 필요하면 방법 B(영상 파일 업로드)를 사용하세요.</div>
+
+<h2 id="s5">5. 신규 상품: 유튜브 마스트헤드 (홈피드 최상단 · MO)</h2>
+<p>이번 업데이트로 <b>유튜브 마스트헤드</b> 템플릿이 추가되어, 모바일 지면은 총 4종이 되었습니다.
+마스트헤드는 유튜브 앱 홈 화면 최상단에 노출되는 대형 영상 지면으로, 라이브 당일 하루만 게재되는 경우가 많아 사후 캡처가 특히 어려운 상품입니다.</p>
+<img src="guide/masthead.png" alt="마스트헤드 템플릿">
+<ul>
+  <li><span class="num">1</span><b>상품 선택</b>에서 <b>"유튜브 마스트헤드 — 홈피드 최상단 (MO)"</b>를 고릅니다.</li>
+  <li><span class="num">2</span><b>미리보기</b> — 유튜브 홈 상단바(로고·아이콘), 카테고리 칩, 소재 영역, 음소거 버튼, "광고" 라벨, CTA 버튼, 아래로 이어지는 오가닉 콘텐츠까지 실제 마스트헤드 구조 그대로 재현됩니다.</li>
+</ul>
+<p>마스트헤드 전용 설정 항목:</p>
+<table>
+  <tr><th>그룹</th><th>항목</th><th>설명</th></tr>
+  <tr><td>홈 상단</td><td>카테고리 칩</td><td>"전체 · 음악 · 게임…" 칩 줄 표시/숨김</td></tr>
+  <tr><td>영상</td><td>음소거 버튼</td><td>실제 마스트헤드처럼 우하단 음소거 아이콘 표시/숨김</td></tr>
+  <tr><td>영상</td><td>재생시간</td><td>입력하면 우하단에 시간 배지 표시, 비우면 숨김(기본)</td></tr>
+  <tr><td>광고 정보</td><td>"광고" 라벨</td><td>채널명 앞의 <b>광고</b> 표기 켜기/끄기</td></tr>
+  <tr><td>광고 정보</td><td>하단 오가닉</td><td>마스트헤드 아래로 살짝 보이는 다음 동영상 영역 표시/숨김</td></tr>
+</table>
+
+<h2 id="s6">6. 요소별 설정 — 무엇을 바꿀 수 있나</h2>
+<p>"3. 요소별 설정"에는 선택한 상품의 화면 요소가 그룹별로 나열됩니다. 입력하는 즉시 미리보기에 반영됩니다.</p>
+<table>
+  <tr><th>그룹</th><th>대표 항목</th><th>이렇게 쓰세요</th></tr>
+  <tr><td>상태바 (MO)</td><td>시간, 신호 강도, 와이파이, 배터리 %</td><td>캡처처럼 자연스럽게 — 보고서의 다른 실캡처와 시간대를 맞추면 좋습니다.</td></tr>
+  <tr><td>검색·영상</td><td>검색어, 필터칩(VRC), 재생시간, 진행바</td><td>검색어는 실제 캠페인 키워드로. VRC 상품은 필터칩이 자동으로 켜집니다.</td></tr>
+  <tr><td>광고 정보</td><td>아바타 글자·색, 제목, 부제, 스폰서명, "스폰서/광고" 라벨</td><td>광고주 브랜드명과 실제 집행 문구를 입력하세요. 유튜브 URL로 소재를 가져왔다면 자동으로 채워져 있습니다.</td></tr>
+  <tr><td>CTA</td><td>버튼 문구, 버튼 색</td><td>버튼 색은 색상 선택기를 눌러 소재 톤에 맞춥니다.</td></tr>
+  <tr><td>Shorts 전용</td><td>좋아요/댓글 수, 광고 배지, 하단 내비게이션</td><td>숫자는 자연스러운 값으로 자유 입력.</td></tr>
+</table>
+
+<h2 id="s7">7. 이미지 저장과 게재보고 활용</h2>
+<ol>
+  <li>미리보기가 원하는 모습이 되면 왼쪽 아래 <b>고화질 PNG 다운로드</b>를 클릭합니다.</li>
+  <li>버튼이 잠시 "내보내는 중…"으로 바뀐 뒤, <code>게재면_상품명.png</code> 파일이 다운로드됩니다. 미리보기의 3배 해상도(가로 1080px)라 보고서 삽입 시에도 선명합니다.</li>
+  <li>PPT 게재보고 덱의 해당 지면 슬롯에 붙여넣으면 끝입니다.</li>
+</ol>
+
+<h2 id="s8">8. 주의사항 · FAQ</h2>
+<h3>Q. 소재 가져오기가 "가져오기 실패"라고 나와요</h3>
+<p>비공개/삭제된 영상이거나 썸네일이 없는 영상입니다. 소재 파일(이미지·영상)을 직접 업로드하는 방법을 사용하세요.</p>
+<h3>Q. 세로형(Shorts) 지면인데 가로 썸네일이 들어가요</h3>
+<p>유튜브 URL 방식은 세로 썸네일을 우선 탐색하지만 영상에 따라 없을 수 있습니다. 이 경우 "영상(프레임)" 탭에서 세로 원본(1080×1920)을 올려 장면을 선택하는 것이 가장 확실합니다.</p>
+<h3>Q. 새 지면(네이버·카카오 등)이 필요해요</h3>
+<p>템플릿은 계속 확장 예정입니다. 필요한 지면과 실제 캡처 샘플을 관리 담당자에게 전달해 주세요.</p>
+<h3>Q. 화면이 예전 그대로예요 (새 상품이 안 보여요)</h3>
+<p>브라우저 캐시 때문일 수 있습니다. <b>Ctrl+F5</b>(강력 새로고침)를 눌러 주세요.</p>
+
+</div>
+<script>
+(function(){
+  var HASH="df8ab53cabe895638e16712e3f6d60b879161a50db1d4a57e2d21086ea6ff3c4";
+  function sha(s){return crypto.subtle.digest("SHA-256",new TextEncoder().encode(s)).then(function(b){return Array.prototype.map.call(new Uint8Array(b),function(x){return x.toString(16).padStart(2,"0")}).join("")})}
+  function go(){sha(document.getElementById("pw").value).then(function(h){if(h===HASH){sessionStorage.setItem("pr_ok",h);document.getElementById("gate").style.display="none";}else{document.getElementById("pwerr").textContent="비밀번호가 올바르지 않습니다.";}})}
+  document.getElementById("pwbtn").addEventListener("click",go);
+  document.getElementById("pw").addEventListener("keydown",function(e){if(e.key==="Enter")go();});
+  if(sessionStorage.getItem("pr_ok")===HASH)document.getElementById("gate").style.display="none";
+})();
+</script>
+</body>
+</html>

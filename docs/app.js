@@ -25,6 +25,7 @@ var BURGER='<svg style="width:22px;height:22px;flex:none" viewBox="0 0 24 24" fi
 var LOGO='<span class="yt-logo"><svg style="width:29px;height:20px" viewBox="0 0 29 20"><rect width="29" height="20" rx="4.6" fill="#f03"/><path d="M11.6 5.8l7.2 4.2-7.2 4.2z" fill="#fff"/></svg><span>YouTube</span></span>';
 var BELL_L='<svg style="width:22px;height:22px;flex:none" viewBox="0 0 24 24" fill="#fff"><path d="M12 22a2.5 2.5 0 0 0 2.45-2h-4.9A2.5 2.5 0 0 0 12 22zm7-6v-5c0-3.2-1.7-5.9-4.7-6.6V3.7a1.3 1.3 0 0 0-2.6 0v.7C8.7 5.1 7 7.8 7 11v5l-2 2v1h14v-1l-2-2z"/></svg>';
 var CAM='<svg style="width:22px;height:22px;flex:none" viewBox="0 0 24 24" fill="#fff"><path d="M17 10.5V7a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-3.5l4 4v-11l-4 4z"/></svg>';
+var MUTE='<svg style="width:18px;height:18px" viewBox="0 0 24 24" fill="#fff"><path d="M16.5 12A4.5 4.5 0 0 0 14 8v2.2l2.5 2.5v-.7zm2.5 0c0 .9-.2 1.8-.5 2.6l1.5 1.5A8.8 8.8 0 0 0 21 12c0-4.3-3-7.9-7-8.8v2.1c2.9.9 5 3.5 5 6.7zM4.3 3 3 4.3 7.7 9H3v6h4l5 5v-6.7l4.3 4.3c-.7.5-1.4.9-2.3 1.2v2.1c1.4-.3 2.6-1 3.7-1.8l2 2L21 19.7 4.3 3zM12 4 9.9 6.1 12 8.2V4z"/></svg>';
 
 function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
 function batt(pct){ return '<div class="batt"><div class="cap"><div class="fill" style="width:'+pct+'%"></div><span class="pct">'+pct+'</span></div></div>'; }
@@ -84,6 +85,30 @@ function renderShorts(c){
     + '<div class="s-cta" style="background:'+esc(c.ctaColor)+'">'+esc(c.cta)+'</div>'
     + nav
     + (c.showGesture?'<div class="gesture"></div>':'')+'</div>';
+}
+
+// ── 마스트헤드(홈피드 최상단 · MO) 렌더 ──
+function renderMasthead(c){
+  var chips = c.showChips ? '<div class="chips"><div class="chip on">전체</div><div class="chip">음악</div><div class="chip">게임</div><div class="chip">뉴스</div><div class="chip">실시간</div></div>' : '';
+  var vid = '<div class="video" style="height:202px;'+creativeBg(c.creative)+'">'
+    + (c.creative?'':'<div class="ph">여기에 광고 소재</div>')
+    + (c.showMute?'<div class="mute">'+MUTE+'</div>':'')
+    + (c.duration?'<div class="dur">'+esc(c.duration)+'</div>':'')
+    + '</div>';
+  return '<div class="phone">'
+    + '<div class="statusbar"><div class="sb-l"><span>'+esc(c.time)+'</span>'+(c.showBell?BELL:'')+'</div>'
+      + '<div class="sb-r">'+signalSvg(c.signal)+(c.wifi?WIFI:'')+batt(c.battery)+'</div></div>'
+    + '<div class="home-top">'+LOGO+'<div class="ht-r">'+CAM+BELL_L+SEARCH+'<div class="pc-avatar" style="width:26px;height:26px"></div></div></div>'
+    + chips
+    + vid
+    + '<div class="meta"><div class="avatar" style="background:'+esc(c.avatarColor)+'">'+esc(c.avatarText)+'</div>'
+      + '<div class="mtext"><div class="mtitle">'+esc(c.title)+'</div>'
+      + (c.subtitle?'<div class="msub">'+esc(c.subtitle)+'</div>':'')
+      + '<div class="msponsor">'+(c.showAdBadge?'<b>광고</b> · ':'')+esc(c.sponsor)+'</div></div>'
+      + '<div class="kebab">'+KEBAB_H+'</div></div>'
+    + '<div class="cta" style="background:'+esc(c.ctaColor)+'">'+esc(c.cta)+'</div>'
+    + (c.showOrganic?'<div class="next-org">다음 동영상 (오가닉 콘텐츠)</div>':'')
+    + '</div>';
 }
 
 // ── 인피드(VVC/VRC · PC) 렌더 ──
@@ -158,7 +183,12 @@ var DEF={
   shortsPc:{ showHeader:true, searchText:'검색', showAdBadge:true, adBadge:'광고',
     showRail:true, likes:'906', comments:'24', shareLabel:'공유', avatarText:'M', avatarColor:'#e8552d',
     sponsor:'메이플스토리M', adtext:'지금 사전등록하고 특별 사전 이벤트 보상 모두 받아가기',
-    cta:'사전등록', ctaColor:OLIVE, creative:null }
+    cta:'사전등록', ctaColor:OLIVE, creative:null },
+  masthead:{ time:'7:08', signal:4, wifi:true, showBell:true, battery:88,
+    showChips:true, showMute:true, duration:'',
+    avatarText:'M', avatarColor:'#e8552d', title:'보스 부담 확 줄인 메이플M 지금 사전등록하고 도전하자',
+    subtitle:'', showAdBadge:true, sponsor:'메이플스토리M',
+    cta:'사전등록', ctaColor:OLIVE, showOrganic:true, creative:null }
 };
 var CTRL={
   infeed:[
@@ -185,10 +215,17 @@ var CTRL={
     ['H','우측 액션'],['showRail','액션 표시','check'],['likes','좋아요 수','text'],['comments','댓글 수','text'],['shareLabel','공유 라벨','text'],
     ['H','하단 정보'],['avatarText','아바타 글자','text'],['avatarColor','아바타 색','color'],['sponsor','스폰서명','text'],['adtext','광고 안내문','text'],
     ['H','CTA'],['cta','버튼 문구','text'],['ctaColor','버튼 색','color'],
+  ],
+  masthead:[
+    ['H','상태바'],['time','시간','text'],['signal','신호 강도','range',0,4],['wifi','와이파이','check'],['showBell','알림벨','check'],['battery','배터리 %','range',0,100],
+    ['H','홈 상단'],['showChips','카테고리 칩','check'],
+    ['H','영상'],['showMute','음소거 버튼','check'],['duration','재생시간(비우면 숨김)','text'],
+    ['H','광고 정보'],['avatarText','아바타 글자','text'],['avatarColor','아바타 색','color'],['title','제목','text'],['subtitle','부제','text'],['showAdBadge','"광고" 라벨','check'],['sponsor','채널/스폰서명','text'],['showOrganic','하단 오가닉','check'],
+    ['H','CTA'],['cta','버튼 문구','text'],['ctaColor','버튼 색','color'],
   ]
 };
 
-var KIND={ vvc:'infeed', vrc:'infeed', shorts:'shorts', 'vvc-pc':'infeedPc', 'vrc-pc':'infeedPc', 'shorts-pc':'shortsPc' };
+var KIND={ vvc:'infeed', vrc:'infeed', shorts:'shorts', masthead:'masthead', 'vvc-pc':'infeedPc', 'vrc-pc':'infeedPc', 'shorts-pc':'shortsPc' };
 var state={ template:'vvc', cfg:{ creative:null } };
 function kind(){ return KIND[state.template]; }
 
@@ -196,6 +233,7 @@ function draw(){
   var c=state.cfg, k=kind(), html;
   if(k==='shorts') html=renderShorts(c);
   else if(k==='shortsPc') html=renderShortsPC(c);
+  else if(k==='masthead') html=renderMasthead(c);
   else{
     var cc=Object.assign({},c,{showChips:(state.template==='vrc'||state.template==='vrc-pc')?true:c.showChips});
     html = k==='infeedPc' ? renderInfeedPC(cc) : renderInfeed(cc);
@@ -317,7 +355,7 @@ function applyYt(){
       .then(function(d){
         if(!d||!d.title) return;
         var k=kind();
-        if(k==='infeed'||k==='infeedPc') state.cfg.title=d.title;
+        if(k==='infeed'||k==='infeedPc'||k==='masthead') state.cfg.title=d.title;
         if(d.author_name){ state.cfg.sponsor=d.author_name; state.cfg.avatarText=String(d.author_name).charAt(0).toUpperCase(); }
         buildControls(); draw();
       }).catch(function(){});
