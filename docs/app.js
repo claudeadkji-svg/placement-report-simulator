@@ -54,14 +54,24 @@ function renderInfeed(c){
 }
 
 // ── Shorts(MO) 렌더 ──
+var NAV_HOME='<svg viewBox="0 0 24 24" fill="#fff" style="width:22px;height:22px"><path d="M12 4 4 10.5V20h5.5v-5.5h5V20H20v-9.5z"/></svg>';
+var NAV_SHORTS='<svg viewBox="0 0 24 24" fill="#fff" style="width:22px;height:22px"><path d="M16.9 5.9c1.4.8 1.9 2.7 1 4.1-.2.4-.6.7-1 .9l1 .6c1.4.8 1.9 2.7 1 4.1-.3.4-.6.8-1 1l-4.9 2.8c-1.4.8-3.3.3-4.1-1.1-.8-1.4-.3-3.2 1.1-4l.9-.5-.9-.5c-1.4-.8-1.9-2.7-1.1-4.1.3-.4.6-.8 1-1l4.9-2.8c1.4-.8 3.2-.3 4.1 1.1z"/><path d="M10.5 14.5v-5l4.3 2.5z" fill="#0f0f0f"/></svg>';
+var NAV_PLUS='<svg viewBox="0 0 24 24" fill="#fff" style="width:24px;height:24px"><path d="M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zm0 1.8a7.2 7.2 0 1 1 0 14.4 7.2 7.2 0 0 1 0-14.4zM11 8v3H8v2h3v3h2v-3h3v-2h-3V8z"/></svg>';
+var NAV_SUBS='<svg viewBox="0 0 24 24" fill="#fff" style="width:22px;height:22px"><path d="M4 8h16v12H4zm2-3h12v2H6zm4 6v6l5-3z"/><path d="M10 11v6l5-3z" fill="#0f0f0f"/></svg>';
 function renderShorts(c){
-  var net = c.network ? '<span style="font-size:12px;font-weight:700">'+esc(c.network)+'</span>' : '';
+  var net = c.network ? '<span style="font-size:11px;font-weight:700">'+esc(c.network)+'</span>' : '';
   var rail = c.showRail ? '<div class="rail">'
     + '<div class="act">'+HEART+'<span class="lbl">'+esc(c.likes)+'</span></div>'
     + '<div class="act">'+COMMENT+'<span class="lbl">'+esc(c.comments)+'</span></div>'
     + '<div class="act">'+SHARE+'<span class="lbl">'+esc(c.shareLabel)+'</span></div>'
     + '<div class="act">'+KEBAB+'</div></div>' : '';
-  return '<div class="sphone">'
+  var nav = c.showNav ? '<div class="s-nav">'
+    + '<div class="nav-it">'+NAV_HOME+'<span>홈</span></div>'
+    + '<div class="nav-it on">'+NAV_SHORTS+'<span>Shorts</span></div>'
+    + '<div class="nav-it">'+NAV_PLUS+'</div>'
+    + '<div class="nav-it">'+NAV_SUBS+'<span>구독</span></div>'
+    + '<div class="nav-it"><div class="nav-av">Y</div><span>내 페이지</span></div></div>' : '';
+  return '<div class="sphone'+(c.showNav?' nav':'')+'">'
     + '<div class="s-creative" style="'+creativeBg(c.creative)+'">'+(c.creative?'':'<div class="s-ph">세로 소재(9:16)</div>')+'</div>'
     + '<div class="scrim-top"></div><div class="scrim-bot"></div>'
     + '<div class="statusbar"><span>'+esc(c.time)+'</span><div class="sb-r">'+signalSvg(c.signal)+net+batt(c.battery)+'</div></div>'
@@ -72,6 +82,7 @@ function renderShorts(c){
       + '<span class="nm">'+esc(c.sponsor)+'</span><span class="sp"> · 스폰서</span></div>'
       + '<div class="adtext">'+esc(c.adtext)+'</div></div>'
     + '<div class="s-cta" style="background:'+esc(c.ctaColor)+'">'+esc(c.cta)+'</div>'
+    + nav
     + (c.showGesture?'<div class="gesture"></div>':'')+'</div>';
 }
 
@@ -139,7 +150,7 @@ var DEF={
   shorts:{ time:'7:11', signal:4, network:'5G', battery:88, showBack:true, showAdBadge:true, adBadge:'광고',
     showRail:true, likes:'906', comments:'24', shareLabel:'공유', avatarText:'M', avatarColor:'#e8552d',
     sponsor:'메이플스토리M', adtext:'지금 사전등록하고 특별 사전 이벤트 보상 모두 받아가기',
-    cta:'사전등록', ctaColor:OLIVE, showGesture:true, creative:null },
+    cta:'사전등록', ctaColor:OLIVE, showNav:true, showGesture:true, creative:null },
   infeedPc:{ keyword:'메이플스토리m', showChips:false, duration:'0:30',
     avatarText:'M', avatarColor:'#e8552d', title:'보스 부담 확 줄인 메이플M 지금 사전등록하고 도전하자',
     subtitle:'메이플M 지금 사전등록하면 특별 보상 모두 받아가기', showSponsorLabel:true, sponsor:'메이플스토리M',
@@ -161,7 +172,7 @@ var CTRL={
     ['H','상단'],['showBack','뒤로가기','check'],['showAdBadge','광고 배지','check'],['adBadge','배지 문구','text'],
     ['H','우측 액션'],['showRail','액션 표시','check'],['likes','좋아요 수','text'],['comments','댓글 수','text'],['shareLabel','공유 라벨','text'],
     ['H','하단 정보'],['avatarText','아바타 글자','text'],['avatarColor','아바타 색','color'],['sponsor','스폰서명','text'],['adtext','광고 안내문','text'],
-    ['H','CTA'],['cta','버튼 문구','text'],['ctaColor','버튼 색','color'],['showGesture','제스처 바','check'],
+    ['H','CTA'],['cta','버튼 문구','text'],['ctaColor','버튼 색','color'],['showNav','하단 내비게이션','check'],['showGesture','제스처 바','check'],
   ],
   infeedPc:[
     ['H','검색·영상'],['keyword','검색어','text'],['showChips','필터칩(VRC)','check'],['duration','재생시간','text'],

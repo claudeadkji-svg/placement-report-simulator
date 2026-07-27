@@ -76,26 +76,39 @@ input[type=checkbox]{ width:auto; }
 .org-h{ font-size:15px; font-weight:700; } .org-s{ font-size:12px; color:#aaa; margin-top:2px; } .pad{ height:16px; }
 
 /* ---- Shorts(세로) ---- */
+/* 실제 게재면 캡처 비율 기준: 액션 아이콘 ~22px, 하단 유튜브 내비게이션 포함 */
 .sphone{ width:360px; height:780px; position:relative; background:#000; overflow:hidden;
   font-family:Roboto,"Malgun Gothic","맑은 고딕",sans-serif; color:#fff; }
+.sphone .statusbar{ font-size:12px; height:26px; position:relative; z-index:5; }
+.sphone .batt .cap{ width:21px; height:12px; } .sphone .batt .pct{ font-size:8px; }
 .s-creative{ position:absolute; inset:0; } .s-creative img{ width:100%; height:100%; object-fit:cover; display:block; }
 .s-ph{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
   background:repeating-linear-gradient(45deg,#242424,#242424 12px,#1e1e1e 12px,#1e1e1e 24px); color:#777; }
-.scrim-top{ position:absolute; top:0; left:0; right:0; height:120px; background:linear-gradient(rgba(0,0,0,.55),transparent); }
-.scrim-bot{ position:absolute; bottom:0; left:0; right:0; height:230px; background:linear-gradient(transparent,rgba(0,0,0,.65)); }
-.topbar{ position:absolute; top:34px; left:0; right:0; height:40px; display:flex; align-items:center; justify-content:space-between; padding:0 12px; z-index:5; }
-.adbadge{ font-size:12px; font-weight:700; background:rgba(0,0,0,.35); padding:2px 6px; border-radius:3px; }
-.rail{ position:absolute; right:8px; bottom:96px; display:flex; flex-direction:column; align-items:center; gap:20px; z-index:6; }
-.rail .act{ display:flex; flex-direction:column; align-items:center; gap:4px; }
-.rail .act .lbl{ font-size:11px; font-weight:600; text-shadow:0 1px 3px rgba(0,0,0,.6); }
-.rail svg{ filter:drop-shadow(0 1px 3px rgba(0,0,0,.6)); }
-.s-bottom{ position:absolute; left:0; right:52px; bottom:66px; padding:0 12px; z-index:6; }
+.scrim-top{ position:absolute; top:0; left:0; right:0; height:110px; background:linear-gradient(rgba(0,0,0,.55),transparent); }
+.scrim-bot{ position:absolute; bottom:0; left:0; right:0; height:210px; background:linear-gradient(transparent,rgba(0,0,0,.65)); }
+.sphone.nav .scrim-bot{ bottom:54px; }
+.topbar{ position:absolute; top:30px; left:0; right:0; height:36px; display:flex; align-items:center; justify-content:space-between; padding:0 12px; z-index:5; }
+.adbadge{ font-size:11px; font-weight:700; background:rgba(0,0,0,.35); padding:2px 6px; border-radius:3px; }
+.rail{ position:absolute; right:10px; bottom:96px; display:flex; flex-direction:column; align-items:center; gap:14px; z-index:6; }
+.sphone.nav .rail{ bottom:120px; }
+.rail svg{ width:22px; height:22px; filter:drop-shadow(0 1px 3px rgba(0,0,0,.6)); }
+.rail .act{ display:flex; flex-direction:column; align-items:center; gap:3px; }
+.rail .act .lbl{ font-size:10px; font-weight:600; text-shadow:0 1px 3px rgba(0,0,0,.6); }
+.s-bottom{ position:absolute; left:0; right:48px; bottom:66px; padding:0 12px; z-index:6; }
+.sphone.nav .s-bottom{ bottom:110px; }
 .channel{ display:flex; align-items:center; gap:8px; }
-.channel .av{ width:30px; height:30px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:bold; font-size:15px; color:#fff; }
-.channel .nm{ font-size:14px; font-weight:600; text-shadow:0 1px 3px rgba(0,0,0,.6); } .channel .sp{ font-size:12px; color:#ddd; }
-.adtext{ font-size:13px; margin-top:8px; text-shadow:0 1px 3px rgba(0,0,0,.6); line-height:1.35; }
-.s-cta{ position:absolute; left:12px; right:12px; bottom:20px; height:44px; border-radius:6px; display:flex; align-items:center; justify-content:center; font-size:15px; font-weight:700; color:#efe9e6; z-index:6; }
-.gesture{ position:absolute; bottom:6px; left:50%; transform:translateX(-50%); width:120px; height:4px; border-radius:3px; background:rgba(255,255,255,.85); z-index:7; }
+.channel .av{ width:26px; height:26px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:bold; font-size:13px; color:#fff; }
+.channel .nm{ font-size:13px; font-weight:600; text-shadow:0 1px 3px rgba(0,0,0,.6); } .channel .sp{ font-size:11px; color:#ddd; }
+.adtext{ font-size:12px; margin-top:6px; text-shadow:0 1px 3px rgba(0,0,0,.6); line-height:1.35; }
+.s-cta{ position:absolute; left:12px; right:12px; bottom:20px; height:36px; border-radius:6px; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:700; color:#efe9e6; z-index:6; }
+.sphone.nav .s-cta{ bottom:64px; }
+.s-nav{ position:absolute; left:0; right:0; bottom:0; height:54px; background:#0f0f0f; border-top:1px solid #272727;
+  display:flex; align-items:center; justify-content:space-around; padding:0 4px 6px; z-index:8; }
+.nav-it{ display:flex; flex-direction:column; align-items:center; gap:2px; }
+.nav-it span{ font-size:9px; color:#e8e8e8; }
+.nav-it.on span{ font-weight:700; }
+.nav-av{ width:22px; height:22px; border-radius:50%; background:#3d5afe; display:flex; align-items:center; justify-content:center; font-size:10px; font-weight:700; }
+.gesture{ position:absolute; bottom:5px; left:50%; transform:translateX(-50%); width:110px; height:4px; border-radius:3px; background:rgba(255,255,255,.85); z-index:9; }
 
 /* ---- PC 공통 (헤더) ---- */
 .pc, .pcs{ width:880px; background:#0f0f0f; color:#f1f1f1;
