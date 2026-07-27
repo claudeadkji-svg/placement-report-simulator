@@ -36,16 +36,24 @@
     <div class="sec">
       <h2>1. 상품 선택</h2>
       <select id="template">
-        <option value="vvc">유튜브 VVC — 검색 인피드 (가로)</option>
-        <option value="vrc">유튜브 VRC — 검색 인피드 + 필터칩 (가로)</option>
-        <option value="shorts">유튜브 Run of Shorts — 세로 전체화면</option>
+        <optgroup label="모바일 (MO)">
+          <option value="vvc">유튜브 VVC — 검색 인피드 (MO)</option>
+          <option value="vrc">유튜브 VRC — 검색 인피드 + 필터칩 (MO)</option>
+          <option value="shorts">유튜브 Run of Shorts — 세로 전체화면 (MO)</option>
+        </optgroup>
+        <optgroup label="데스크톱 (PC)">
+          <option value="vvc-pc">유튜브 VVC — 검색 인피드 (PC)</option>
+          <option value="vrc-pc">유튜브 VRC — 검색 인피드 + 필터칩 (PC)</option>
+          <option value="shorts-pc">유튜브 Run of Shorts — 플레이어 (PC)</option>
+        </optgroup>
       </select>
     </div>
     <div class="sec">
       <h2>2. 소재 입력</h2>
       <div class="tabs">
         <div class="tab on" data-m="img">이미지</div>
-        <div class="tab" data-m="vid">영상(프레임 선택)</div>
+        <div class="tab" data-m="vid">영상(프레임)</div>
+        <div class="tab" data-m="url">유튜브 URL</div>
       </div>
       <div id="in-img"><input type="file" id="img" accept="image/*"></div>
       <div id="in-vid" style="display:none">
@@ -53,8 +61,14 @@
         <div id="vidtools" style="display:none;margin-top:8px">
           <label>장면 선택 (드래그): <b id="tstamp">0.0s</b></label>
           <input type="range" id="scrub" min="0" max="100" value="50">
-          <div class="hint">유튜브 영상은 파일로 저장해 올리거나, 원하는 장면을 캡처해 이미지로 올리세요.</div>
         </div>
+      </div>
+      <div id="in-url" style="display:none">
+        <input type="text" id="yturl" placeholder="https://www.youtube.com/watch?v=… · youtu.be/… · /shorts/…">
+        <div class="chk" style="margin-top:8px"><input type="checkbox" id="ytmeta" checked><label for="ytmeta" style="margin:0">제목·채널명 자동 입력</label></div>
+        <button class="btn" id="ytapply">소재 가져오기</button>
+        <div class="status" id="ytstatus"></div>
+        <div class="hint">영상의 최고화질 대표 썸네일을 가져와 소재로 적용합니다. 특정 장면이 필요하면 "영상(프레임)" 탭에서 파일을 올려 원하는 장면을 선택하세요.</div>
       </div>
     </div>
     <div class="sec"><h2>3. 요소별 설정 (모두 개별 조정)</h2></div>

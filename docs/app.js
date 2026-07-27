@@ -19,12 +19,18 @@ var KEBAB_H='<svg style="width:20px;height:20px" viewBox="0 0 24 24" fill="#fff"
 var HEART='<svg width="30" height="30" viewBox="0 0 24 24" fill="#fff"><path d="M12 21s-7-4.5-9.3-8.7C1 9.5 2.4 6 5.7 6c1.9 0 3.2 1 4.3 2.3C11.1 7 12.4 6 14.3 6c3.3 0 4.7 3.5 3 6.3C19 16.5 12 21 12 21z"/></svg>';
 var COMMENT='<svg width="30" height="30" viewBox="0 0 24 24" fill="#fff"><path d="M12 3C6.5 3 2 6.6 2 11c0 2.5 1.4 4.7 3.7 6.1L5 21l4.2-2.2c.9.2 1.8.2 2.8.2 5.5 0 10-3.6 10-8s-4.5-8-10-8z"/></svg>';
 var SHARE='<svg width="30" height="30" viewBox="0 0 24 24" fill="#fff"><path d="M14 9V5l7 7-7 7v-4C7 12 4 16 3 20c0-9 5-11 11-11z"/></svg>';
+// PC 전용
+var SEARCH='<svg style="width:20px;height:20px" viewBox="0 0 24 24" fill="#e8e8e8"><path d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 1 0-.7.7l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0A4.5 4.5 0 1 1 14 9.5 4.5 4.5 0 0 1 9.5 14z"/></svg>';
+var BURGER='<svg style="width:22px;height:22px;flex:none" viewBox="0 0 24 24" fill="#fff"><path d="M3 6h18v2H3zM3 11h18v2H3zM3 16h18v2H3z"/></svg>';
+var LOGO='<span class="yt-logo"><svg style="width:29px;height:20px" viewBox="0 0 29 20"><rect width="29" height="20" rx="4.6" fill="#f03"/><path d="M11.6 5.8l7.2 4.2-7.2 4.2z" fill="#fff"/></svg><span>YouTube</span></span>';
+var BELL_L='<svg style="width:22px;height:22px;flex:none" viewBox="0 0 24 24" fill="#fff"><path d="M12 22a2.5 2.5 0 0 0 2.45-2h-4.9A2.5 2.5 0 0 0 12 22zm7-6v-5c0-3.2-1.7-5.9-4.7-6.6V3.7a1.3 1.3 0 0 0-2.6 0v.7C8.7 5.1 7 7.8 7 11v5l-2 2v1h14v-1l-2-2z"/></svg>';
+var CAM='<svg style="width:22px;height:22px;flex:none" viewBox="0 0 24 24" fill="#fff"><path d="M17 10.5V7a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-3.5l4 4v-11l-4 4z"/></svg>';
 
 function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
 function batt(pct){ return '<div class="batt"><div class="cap"><div class="fill" style="width:'+pct+'%"></div><span class="pct">'+pct+'</span></div></div>'; }
 function creativeBg(url){ return url ? 'background-image:url('+url+');background-size:cover;background-position:center;' : ''; }
 
-// ── 인피드(VVC/VRC) 렌더 ──
+// ── 인피드(VVC/VRC · MO) 렌더 ──
 function renderInfeed(c){
   var chips = c.showChips ? '<div class="chips"><div class="chip on">전체</div><div class="chip">Shorts</div><div class="chip">시청하지 않음</div><div class="chip">감상한 동영상</div></div>' : '';
   var vid = '<div class="video" style="height:202px;'+creativeBg(c.creative)+'">'
@@ -47,7 +53,7 @@ function renderInfeed(c){
     + '<div class="pad"></div></div>';
 }
 
-// ── Shorts 렌더 ──
+// ── Shorts(MO) 렌더 ──
 function renderShorts(c){
   var net = c.network ? '<span style="font-size:12px;font-weight:700">'+esc(c.network)+'</span>' : '';
   var rail = c.showRail ? '<div class="rail">'
@@ -69,10 +75,63 @@ function renderShorts(c){
     + (c.showGesture?'<div class="gesture"></div>':'')+'</div>';
 }
 
+// ── 인피드(VVC/VRC · PC) 렌더 ──
+function renderInfeedPC(c){
+  var chips = c.showChips ? '<div class="pc-chips"><div class="chip on">전체</div><div class="chip">Shorts</div><div class="chip">시청하지 않음</div><div class="chip">최근에 업로드됨</div><div class="chip">감상한 동영상</div></div>' : '';
+  var organic = c.showOrganic ? '<div class="pc-card pc-organic">'
+    + '<div class="pc-thumb"><div class="ph">오가닉 검색결과</div><div class="dur">10:24</div></div>'
+    + '<div class="pc-info"><div class="pc-title">'+esc(c.keyword)+' 공식 영상</div>'
+    + '<div class="pc-meta">조회수 12만회 · 3일 전</div>'
+    + '<div class="pc-ch"><div class="avatar" style="width:24px;height:24px;font-size:12px;background:#555">'+esc(String(c.keyword).charAt(0).toUpperCase())+'</div><span class="pc-chname">'+esc(c.keyword)+'</span></div></div></div>' : '';
+  return '<div class="pc">'
+    + '<div class="pc-top">'+BURGER+LOGO
+      + '<div class="pc-search"><div class="pc-field">'+esc(c.keyword)+'</div><div class="pc-sbtn">'+SEARCH+'</div><div class="pc-mic">'+MIC+'</div></div>'
+      + '<div class="pc-right">'+CAM+BELL_L+'<div class="pc-avatar"></div></div></div>'
+    + chips
+    + '<div class="pc-body">'
+      + '<div class="pc-card">'
+        + '<div class="pc-thumb" style="'+creativeBg(c.creative)+'">'+(c.creative?'':'<div class="ph">여기에 광고 소재</div>')+'<div class="dur">'+esc(c.duration)+'</div></div>'
+        + '<div class="pc-info">'
+          + '<div class="pc-title">'+esc(c.title)+'</div>'
+          + '<div class="pc-meta">'+(c.showSponsorLabel?'<b>스폰서</b> · ':'')+esc(c.sponsor)+'</div>'
+          + '<div class="pc-ch"><div class="avatar" style="width:24px;height:24px;font-size:12px;background:'+esc(c.avatarColor)+'">'+esc(c.avatarText)+'</div><span class="pc-chname">'+esc(c.sponsor)+'</span></div>'
+          + (c.subtitle?'<div class="pc-sub">'+esc(c.subtitle)+'</div>':'')
+          + '<div class="pc-cta" style="background:'+esc(c.ctaColor)+'">'+esc(c.cta)+'</div>'
+        + '</div>'
+        + '<div class="pc-kebab">'+KEBAB_H+'</div>'
+      + '</div>'
+      + organic
+    + '</div></div>';
+}
+
+// ── Shorts(PC) 렌더 ──
+function renderShortsPC(c){
+  var head = c.showHeader ? '<div class="pcs-head">'+BURGER+LOGO
+    + '<div class="pc-search"><div class="pc-field" style="color:#888">'+esc(c.searchText)+'</div><div class="pc-sbtn">'+SEARCH+'</div><div class="pc-mic">'+MIC+'</div></div>'
+    + '<div class="pc-right">'+CAM+BELL_L+'<div class="pc-avatar"></div></div></div>' : '';
+  var rail = c.showRail ? '<div class="pcs-rail">'
+    + '<div class="pcs-act"><div class="pcs-btn">'+HEART+'</div><span class="lbl">'+esc(c.likes)+'</span></div>'
+    + '<div class="pcs-act"><div class="pcs-btn">'+COMMENT+'</div><span class="lbl">'+esc(c.comments)+'</span></div>'
+    + '<div class="pcs-act"><div class="pcs-btn">'+SHARE+'</div><span class="lbl">'+esc(c.shareLabel)+'</span></div>'
+    + '<div class="pcs-act"><div class="pcs-btn">'+KEBAB_H+'</div></div></div>' : '';
+  return '<div class="pcs">'+head
+    + '<div class="pcs-stage">'
+      + '<div class="pcs-player" style="'+creativeBg(c.creative)+'">'
+        + (c.creative?'':'<div class="s-ph">세로 소재(9:16)</div>')
+        + '<div class="scrim-top"></div><div class="scrim-bot"></div>'
+        + '<div class="pcs-topbar">'+(c.showAdBadge?'<span class="adbadge">'+esc(c.adBadge)+'</span>':'<span></span>')+KEBAB_H+'</div>'
+        + '<div class="pcs-bottom"><div class="channel"><div class="av" style="background:'+esc(c.avatarColor)+'">'+esc(c.avatarText)+'</div>'
+          + '<span class="nm">'+esc(c.sponsor)+'</span><span class="sp"> · 스폰서</span></div>'
+          + '<div class="adtext">'+esc(c.adtext)+'</div>'
+          + '<div class="pcs-cta" style="background:'+esc(c.ctaColor)+'">'+esc(c.cta)+'</div></div>'
+      + '</div>'+rail
+    + '</div></div>';
+}
+
 // ── 컨트롤 정의 ──
 var OLIVE='#67584f';
 var DEF={
-  infeed:{ template:'vvc', time:'7:08', signal:4, wifi:true, showBell:true, battery:88,
+  infeed:{ time:'7:08', signal:4, wifi:true, showBell:true, battery:88,
     keyword:'메이플스토리m', showChips:false, duration:'0:30', showProgress:true, progress:100,
     avatarText:'M', avatarColor:'#e8552d', title:'보스 부담 확 줄인 메이플M 지금 사전등록하고 도전하자',
     subtitle:'메이플M 지금 사전등록하면 특별 보상 모두 받아가기', showSponsorLabel:true, sponsor:'메이플스토리M',
@@ -80,7 +139,15 @@ var DEF={
   shorts:{ time:'7:11', signal:4, network:'5G', battery:88, showBack:true, showAdBadge:true, adBadge:'광고',
     showRail:true, likes:'906', comments:'24', shareLabel:'공유', avatarText:'M', avatarColor:'#e8552d',
     sponsor:'메이플스토리M', adtext:'지금 사전등록하고 특별 사전 이벤트 보상 모두 받아가기',
-    cta:'사전등록', ctaColor:OLIVE, showGesture:true, creative:null }
+    cta:'사전등록', ctaColor:OLIVE, showGesture:true, creative:null },
+  infeedPc:{ keyword:'메이플스토리m', showChips:false, duration:'0:30',
+    avatarText:'M', avatarColor:'#e8552d', title:'보스 부담 확 줄인 메이플M 지금 사전등록하고 도전하자',
+    subtitle:'메이플M 지금 사전등록하면 특별 보상 모두 받아가기', showSponsorLabel:true, sponsor:'메이플스토리M',
+    cta:'사전등록', ctaColor:OLIVE, showOrganic:true, creative:null },
+  shortsPc:{ showHeader:true, searchText:'검색', showAdBadge:true, adBadge:'광고',
+    showRail:true, likes:'906', comments:'24', shareLabel:'공유', avatarText:'M', avatarColor:'#e8552d',
+    sponsor:'메이플스토리M', adtext:'지금 사전등록하고 특별 사전 이벤트 보상 모두 받아가기',
+    cta:'사전등록', ctaColor:OLIVE, creative:null }
 };
 var CTRL={
   infeed:[
@@ -95,15 +162,33 @@ var CTRL={
     ['H','우측 액션'],['showRail','액션 표시','check'],['likes','좋아요 수','text'],['comments','댓글 수','text'],['shareLabel','공유 라벨','text'],
     ['H','하단 정보'],['avatarText','아바타 글자','text'],['avatarColor','아바타 색','color'],['sponsor','스폰서명','text'],['adtext','광고 안내문','text'],
     ['H','CTA'],['cta','버튼 문구','text'],['ctaColor','버튼 색','color'],['showGesture','제스처 바','check'],
+  ],
+  infeedPc:[
+    ['H','검색·영상'],['keyword','검색어','text'],['showChips','필터칩(VRC)','check'],['duration','재생시간','text'],
+    ['H','광고 정보'],['avatarText','아바타 글자','text'],['avatarColor','아바타 색','color'],['title','제목','text'],['subtitle','부제','text'],['showSponsorLabel','"스폰서" 라벨','check'],['sponsor','채널/스폰서명','text'],['showOrganic','하단 오가닉','check'],
+    ['H','CTA'],['cta','버튼 문구','text'],['ctaColor','버튼 색','color'],
+  ],
+  shortsPc:[
+    ['H','페이지'],['showHeader','상단 헤더','check'],['searchText','검색창 문구','text'],
+    ['H','플레이어 상단'],['showAdBadge','광고 배지','check'],['adBadge','배지 문구','text'],
+    ['H','우측 액션'],['showRail','액션 표시','check'],['likes','좋아요 수','text'],['comments','댓글 수','text'],['shareLabel','공유 라벨','text'],
+    ['H','하단 정보'],['avatarText','아바타 글자','text'],['avatarColor','아바타 색','color'],['sponsor','스폰서명','text'],['adtext','광고 안내문','text'],
+    ['H','CTA'],['cta','버튼 문구','text'],['ctaColor','버튼 색','color'],
   ]
 };
 
-var state={ template:'vvc', cfg:Object.assign({},DEF.infeed) };
-function kind(){ return state.template==='shorts'?'shorts':'infeed'; }
+var KIND={ vvc:'infeed', vrc:'infeed', shorts:'shorts', 'vvc-pc':'infeedPc', 'vrc-pc':'infeedPc', 'shorts-pc':'shortsPc' };
+var state={ template:'vvc', cfg:{ creative:null } };
+function kind(){ return KIND[state.template]; }
 
 function draw(){
-  var c=state.cfg;
-  var html = kind()==='shorts' ? renderShorts(c) : renderInfeed(Object.assign({},c,{showChips: state.template==='vrc'?true:c.showChips}));
+  var c=state.cfg, k=kind(), html;
+  if(k==='shorts') html=renderShorts(c);
+  else if(k==='shortsPc') html=renderShortsPC(c);
+  else{
+    var cc=Object.assign({},c,{showChips:(state.template==='vrc'||state.template==='vrc-pc')?true:c.showChips});
+    html = k==='infeedPc' ? renderInfeedPC(cc) : renderInfeed(cc);
+  }
   document.getElementById('stage').innerHTML=html;
 }
 
@@ -137,10 +222,9 @@ function buildControls(){
 
 function setTemplate(t){
   state.template=t;
-  var base = t==='shorts'?DEF.shorts:DEF.infeed;
-  var creative = state.cfg.creative;
-  state.cfg=Object.assign({},base,{creative:creative});
-  if(t==='vrc') state.cfg.showChips=true;
+  var creative=state.cfg.creative;
+  state.cfg=Object.assign({},DEF[kind()],{creative:creative});
+  if(t==='vrc'||t==='vrc-pc') state.cfg.showChips=true;
   buildControls(); draw();
 }
 
@@ -171,11 +255,71 @@ document.getElementById('scrub').addEventListener('input',function(e){
 });
 vid.addEventListener('seeked',captureFrame);
 
+// ── 유튜브 URL 소재 ──
+function ytId(input){
+  var u=String(input||'').trim();
+  if(!u) return null;
+  if(!/^https?:\/\//i.test(u)) u='https://'+u;
+  try{
+    var url=new URL(u);
+    var h=url.hostname.replace(/^(www|m|music)\./,'');
+    if(h==='youtu.be'){ var p=url.pathname.slice(1).split('/')[0]; if(p) return p; }
+    if(/(^|\.)youtube(-nocookie)?\.com$/.test(h)){
+      if(url.searchParams.get('v')) return url.searchParams.get('v');
+      var m=url.pathname.match(/^\/(shorts|embed|live|v)\/([\w-]{6,})/); if(m) return m[2];
+    }
+  }catch(e){}
+  var m2=u.match(/[?&]v=([\w-]{6,})|youtu\.be\/([\w-]{6,})/);
+  return m2 ? (m2[1]||m2[2]) : null;
+}
+
+// 썸네일 후보를 순서대로 시도 (직접 → CORS 프록시). 1.5KB 미만은 유튜브의 회색 대체이미지로 간주.
+function tryThumb(id,names,idx,ok,fail){
+  if(idx>=names.length){ fail('사용 가능한 썸네일을 찾지 못했습니다.'); return; }
+  var path='i.ytimg.com/vi/'+id+'/'+names[idx]+'.jpg';
+  fetch('https://'+path)
+    .then(function(r){ if(!r.ok) throw 0; return r.blob(); })
+    .catch(function(){
+      return fetch('https://images.weserv.nl/?url='+encodeURIComponent(path))
+        .then(function(r){ if(!r.ok) throw 0; return r.blob(); });
+    })
+    .then(function(b){ if(b && b.size>1500) ok(b,names[idx]); else tryThumb(id,names,idx+1,ok,fail); })
+    .catch(function(){ tryThumb(id,names,idx+1,ok,fail); });
+}
+
+function applyYt(){
+  var st=document.getElementById('ytstatus');
+  var id=ytId(document.getElementById('yturl').value);
+  if(!id){ st.textContent='유튜브 URL을 인식하지 못했습니다. 주소를 확인해주세요.'; return; }
+  st.textContent='소재 가져오는 중…';
+  var vertical = kind()==='shorts'||kind()==='shortsPc';
+  var names = vertical ? ['oardefault','oar2','frame0','maxresdefault','sddefault','hqdefault']
+                       : ['maxresdefault','frame0','sddefault','hqdefault'];
+  tryThumb(id,names,0,function(blob,name){
+    var r=new FileReader();
+    r.onload=function(){ setCreative(r.result); document.getElementById('vidtools').style.display='none'; st.textContent='적용 완료 ('+name+')'; };
+    r.readAsDataURL(blob);
+  },function(msg){ st.textContent='가져오기 실패: '+msg; });
+  if(document.getElementById('ytmeta').checked){
+    fetch('https://noembed.com/embed?url='+encodeURIComponent('https://www.youtube.com/watch?v='+id))
+      .then(function(r){ return r.json(); })
+      .then(function(d){
+        if(!d||!d.title) return;
+        var k=kind();
+        if(k==='infeed'||k==='infeedPc') state.cfg.title=d.title;
+        if(d.author_name){ state.cfg.sponsor=d.author_name; state.cfg.avatarText=String(d.author_name).charAt(0).toUpperCase(); }
+        buildControls(); draw();
+      }).catch(function(){});
+  }
+}
+document.getElementById('ytapply').addEventListener('click',applyYt);
+document.getElementById('yturl').addEventListener('keydown',function(e){ if(e.key==='Enter') applyYt(); });
+
 // 입력 탭
 document.querySelectorAll('.tab').forEach(function(tab){
   tab.onclick=function(){
     document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('on');}); tab.classList.add('on');
-    ['img','vid'].forEach(function(m){ document.getElementById('in-'+m).style.display = m===tab.dataset.m?'':'none'; });
+    ['img','vid','url'].forEach(function(m){ document.getElementById('in-'+m).style.display = m===tab.dataset.m?'':'none'; });
   };
 });
 
