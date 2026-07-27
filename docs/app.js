@@ -16,7 +16,7 @@ var CLEAR='<svg class="icn" style="width:20px;height:20px" viewBox="0 0 24 24" f
 var MIC='<svg class="icn" style="width:20px;height:20px" viewBox="0 0 24 24" fill="#fff"><path d="M12 14a3 3 0 0 0 3-3V5a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.9V21h2v-3.1A7 7 0 0 0 19 11h-2z"/></svg>';
 var KEBAB='<svg class="icn" style="width:6px;height:20px" viewBox="0 0 6 24" fill="#fff"><circle cx="3" cy="4" r="2"/><circle cx="3" cy="12" r="2"/><circle cx="3" cy="20" r="2"/></svg>';
 var KEBAB_H='<svg style="width:20px;height:20px" viewBox="0 0 24 24" fill="#fff"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg>';
-var HEART='<svg width="30" height="30" viewBox="0 0 24 24" fill="#fff"><path d="M12 21s-7-4.5-9.3-8.7C1 9.5 2.4 6 5.7 6c1.9 0 3.2 1 4.3 2.3C11.1 7 12.4 6 14.3 6c3.3 0 4.7 3.5 3 6.3C19 16.5 12 21 12 21z"/></svg>';
+var HEART='<svg width="30" height="30" viewBox="0 0 24 24" fill="#fff"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>';
 var COMMENT='<svg width="30" height="30" viewBox="0 0 24 24" fill="#fff"><path d="M12 3C6.5 3 2 6.6 2 11c0 2.5 1.4 4.7 3.7 6.1L5 21l4.2-2.2c.9.2 1.8.2 2.8.2 5.5 0 10-3.6 10-8s-4.5-8-10-8z"/></svg>';
 var SHARE='<svg width="30" height="30" viewBox="0 0 24 24" fill="#fff"><path d="M14 9V5l7 7-7 7v-4C7 12 4 16 3 20c0-9 5-11 11-11z"/></svg>';
 // PC 전용
